@@ -1,7 +1,19 @@
 import logo from './logo.svg';
 import './App.css';
+import {useEffect} from "react";
+import {initGA, logEvent, logPageView} from "./analytics";
 
 function App() {
+  useEffect(() => {
+    initGA();
+    logPageView(); // Відстежуємо перегляд сторінок
+  }, []);
+
+  const logTestEvent = () => {
+    console.log('event logged')
+    logEvent('User Interaction', 'Clicked on Signup Button', 'Signup Page');
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -9,14 +21,7 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <button onClick={logTestEvent}>Log my test event</button>
       </header>
     </div>
   );
